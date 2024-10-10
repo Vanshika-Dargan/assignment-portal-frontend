@@ -1,12 +1,17 @@
 import { useGoogleLogin } from "@react-oauth/google"
-
-
+import axios from 'axios'
 function Login() {
 
     const responseFromGoogle = async(res)=>{
         try{
         if(res['code']){
-           console.log(); 
+           console.log(res); 
+           const response=await axios.post('http://localhost:8000/portal/v1/auth/login',{
+            code: res['code'],
+            type: 'google',
+            role: 'user'
+           })
+           console.log(response);
         }
         }
         catch(err){
